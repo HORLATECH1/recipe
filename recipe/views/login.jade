@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h2 Login
+  form(action="/auth/login", method="POST")
+    div
+      label Email:
+      input(type="email", name="email", required)
+    div
+      label Password:
+      input(type="password", name="password", required)
+    button(type="submit") Login

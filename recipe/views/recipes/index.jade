@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  h1 Recipe Feed
+  if recipes.length
+    each recipe in recipes
+      .recipe-card
+        h2= recipe.title
+        p.recipe-meta
+          strong Created by: 
+          | #{recipe.author.username}
+        h4 Ingredients:
+        ul
+          each ing in recipe.ingredients
+            li= ing
+        h4 Instructions:
+        p= recipe.instructions
+  else
+    p No recipes added yet!

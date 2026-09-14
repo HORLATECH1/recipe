@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Recipe App
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav
+      a(href="/recipes") All Recipes
+      if user
+        a(href="/recipes/new") Add Recipe
+        a(href="/auth/logout") Logout (#{user.username})
+      else
+        a(href="/auth/login") Login
+        a(href="/auth/register") Register
+    
+    .container
+      if error && error.length > 0
+        p.alert= error
+      if success_msg && success_msg.length > 0
+        p.success-msg= success_msg
+      block content

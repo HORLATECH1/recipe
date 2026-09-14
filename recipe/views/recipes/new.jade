@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  h2 Post a New Recipe
+  form(action="/recipes", method="POST")
+    div
+      label Title:
+      input(type="text", name="title", required)
+    div
+      label Ingredients (comma-separated):
+      input(type="text", name="ingredients", required)
+    div
+      label Instructions:
+      textarea(name="instructions", required)
+    button(type="submit") Save Recipe
