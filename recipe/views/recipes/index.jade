@@ -1,19 +1,46 @@
 extends ../layout
 
 block content
-  h1 Recipe Feed
+  section.hero
+    .hero-copy
+      p.kicker The shared cookbook
+      h1 Good food, written down.
+      p.hero-text Find a weekday favorite, save the recipe that made everyone quiet, or add your own to the collection.
+      if user
+        a.button(href='/recipes/new') Share a recipe
+      else
+        a.button(href='/auth/register') Start your cookbook
+    .hero-note
+      span.note-pin
+      p “The best recipes are the ones with a story.”
+      small Keep yours here.
+  section.recipe-toolbar
+    .section-heading
+      h2 The recipe shelf
+      p= recipes.length ? `${recipes.length} recipe${recipes.length === 1 ? '' : 's'} to make next.` : 'Your next favorite could start here.'
+    form.search-form(action='/recipes', method='GET', role='search')
+      label.sr-only(for='recipe-search') Search recipes
+      input#recipe-search(type='search', name='q', value=query, placeholder='Search title or ingredient')
+      button.button-search(type='submit') Search
   if recipes.length
-    each recipe in recipes
-      .recipe-card
-        h2= recipe.title
-        p.recipe-meta
-          strong Created by: 
-          | #{recipe.author.username}
-        h4 Ingredients:
-        ul
-          each ing in recipe.ingredients
-            li= ing
-        h4 Instructions:
-        p= recipe.instructions
+    .recipe-grid
+      each recipe in recipes
+        article.recipe-card
+          .recipe-card-top
+            p.recipe-author Shared by #{recipe.author ? recipe.author.username : 'a home cook'}
+            time(datetime=recipe.createdAt.toISOString())= recipe.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          h3= recipe.title
+          .ingredient-list
+            each ing in recipe.ingredients
+              span.ingredient= ing
+          .method
+            h4 Method
+            p= recipe.instructions
   else
-    p No recipes added yet!
+    section.empty-state
+      h3= query ? 'No recipes matched that search.' : 'The cookbook is waiting for its first recipe.'
+      p= query ? 'Try a different ingredient or a shorter search phrase.' : 'Add a dish you make without thinking twice.'
+      if user
+        a.button(href='/recipes/new') Add the first recipe
+      else
+        a.button(href='/auth/register') Create an account

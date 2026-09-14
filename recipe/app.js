@@ -47,4 +47,12 @@ app.use('/auth', require('./routes/auth'));
 app.use('/recipes', require('./routes/recipes'));
 app.get('/', (req, res) => res.redirect('/recipes'));
 
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+
+  app.listen(port, () => {
+    console.log(`Recipe server listening on port ${port}`);
+  });
+}
+
 module.exports = app;

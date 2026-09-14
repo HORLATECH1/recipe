@@ -1,21 +1,33 @@
 doctype html
 html
   head
-    title Recipe App
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Pantry Notes | Recipes worth keeping
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+    link(href='https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav
-      a(href="/recipes") All Recipes
-      if user
-        a(href="/recipes/new") Add Recipe
-        a(href="/auth/logout") Logout (#{user.username})
-      else
-        a(href="/auth/login") Login
-        a(href="/auth/register") Register
+    header.site-header
+      nav.site-nav(aria-label='Primary navigation')
+        a.brand(href='/recipes')
+          span.brand-mark P
+          span Pantry Notes
+        .nav-links
+          a(href='/recipes') Browse recipes
+          if user
+            a.button.button-small(href='/recipes/new') Add a recipe
+            a.account-link(href='/auth/logout') Sign out
+          else
+            a(href='/auth/login') Sign in
+            a.button.button-small(href='/auth/register') Join the table
     
-    .container
+    main.container
       if error && error.length > 0
-        p.alert= error
+        p.flash.flash-error(role='alert')= error
       if success_msg && success_msg.length > 0
-        p.success-msg= success_msg
+        p.flash.flash-success(role='status')= success_msg
       block content
+    footer.site-footer
+      p A small collection of recipes worth returning to.

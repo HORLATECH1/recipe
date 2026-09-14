@@ -1,15 +1,20 @@
 extends layout
 
 block content
-  h2 Register
-  form(action="/auth/register", method="POST")
-    div
-      label Username:
-      input(type="text", name="username", required)
-    div
-      label Email:
-      input(type="email", name="email", required)
-    div
-      label Password:
-      input(type="password", name="password", required)
-    button(type="submit") Register
+  .auth-page
+    .form-intro
+      p.kicker Your kitchen starts here
+      h1 Make a place for the recipes you keep.
+      p Join a generous table of home cooks and share the dishes that deserve another round.
+    form.auth-form(action='/auth/register', method='POST')
+      .field
+        label(for='username') Your name
+        input#username(type='text', name='username', required, autocomplete='username')
+      .field
+        label(for='email') Email address
+        input#email(type='email', name='email', required, autocomplete='email')
+      .field
+        label(for='password') Create a password
+        input#password(type='password', name='password', required, minlength='6', autocomplete='new-password')
+      button.button(type='submit') Create account
+      p.form-switch Already have an account? #[a(href='/auth/login') Sign in]

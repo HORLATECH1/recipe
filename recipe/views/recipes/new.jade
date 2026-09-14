@@ -1,15 +1,23 @@
 extends ../layout
 
 block content
-  h2 Post a New Recipe
-  form(action="/recipes", method="POST")
-    div
-      label Title:
-      input(type="text", name="title", required)
-    div
-      label Ingredients (comma-separated):
-      input(type="text", name="ingredients", required)
-    div
-      label Instructions:
-      textarea(name="instructions", required)
-    button(type="submit") Save Recipe
+  .form-page
+    a.back-link(href='/recipes') ← Back to recipes
+    .form-intro
+      p.kicker Add to the collection
+      h1 Write down a recipe you love.
+      p Clear, useful notes make a recipe easy for someone else to cook—and easy for future you to trust.
+    form.recipe-form(action='/recipes', method='POST')
+      .field
+        label(for='title') Recipe name
+        input#title(type='text', name='title', required, maxlength='120', placeholder='e.g. Lemon garlic pasta')
+      .field
+        label(for='ingredients') Ingredients
+        input#ingredients(type='text', name='ingredients', required, placeholder='Olive oil, garlic, lemon, pasta')
+        p.field-help Separate each ingredient with a comma.
+      .field
+        label(for='instructions') Cooking method
+        textarea#instructions(name='instructions', required, maxlength='3000', placeholder='Tell us how you bring it together…')
+      .form-actions
+        button.button(type='submit') Publish recipe
+        a.text-link(href='/recipes') Cancel

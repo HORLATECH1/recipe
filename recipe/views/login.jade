@@ -1,12 +1,17 @@
 extends layout
 
 block content
-  h2 Login
-  form(action="/auth/login", method="POST")
-    div
-      label Email:
-      input(type="email", name="email", required)
-    div
-      label Password:
-      input(type="password", name="password", required)
-    button(type="submit") Login
+  .auth-page
+    .form-intro
+      p.kicker Welcome back
+      h1 Pick up where you left off.
+      p Your saved recipes and new kitchen notes are ready when you are.
+    form.auth-form(action='/auth/login', method='POST')
+      .field
+        label(for='email') Email address
+        input#email(type='email', name='email', required, autocomplete='email')
+      .field
+        label(for='password') Password
+        input#password(type='password', name='password', required, autocomplete='current-password')
+      button.button(type='submit') Sign in
+      p.form-switch New here? #[a(href='/auth/register') Create your account]
