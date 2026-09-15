@@ -7,6 +7,7 @@ module.exports = function (passport) {
       try {
         const user = await User.findOne({ email });
         if (!user) return done(null, false, { message: 'Email not registered' });
+        if (!user.isVerified) return done(null, false, { message: 'Please verify your email before logging in' });
 
         const isMatch = await user.matchPassword(password);
         if (!isMatch) return done(null, false, { message: 'Incorrect password' });

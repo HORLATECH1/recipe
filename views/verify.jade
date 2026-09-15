@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .auth-page
+    .form-intro
+      p.kicker One small step
+      h1 Check your inbox.
+      p Enter the six-digit code we sent to verify your email address.
+    form.auth-form(action='/auth/verify', method='POST')
+      .field
+        label(for='email') Email address
+        input#email(type='email', name='email', value=email, required, autocomplete='email')
+      .field
+        label(for='otp') Verification code
+        input#otp(type='text', name='otp', required, inputmode='numeric', pattern='[0-9]{6}', minlength='6', maxlength='6', autocomplete='one-time-code')
+      button.button(type='submit') Verify email
+      p.form-switch Entered the wrong email? #[a(href='/auth/register') Create a new account]
